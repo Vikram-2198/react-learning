@@ -1,11 +1,15 @@
-const API_URL = "/wp-api";
+const API_URL = import.meta.env.VITE_WORDPRESS_API_URL;
 
 export async function getPosts() {
-  const response = await fetch("http://wordpress-react.test/wp-json/wp/v2/posts");
+  const response = await fetch(`${API_URL}/posts`);
 
   if (!response.ok) {
     throw new Error(`WordPress API error: ${response.status}`);
   }
 
-  return response.json();
+  const posts = await response.json();
+
+  console.log(posts);
+
+  return posts;
 }
